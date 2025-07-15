@@ -8,14 +8,18 @@ const ViewTodo = () => {
     )
 
     const fetchData = () => {
-        axios.get("https://dummyjson.com/todos").then(
-            (response)=>{
-                changeTodoData(response.data)
-            }
-        ).catch()
+        axios.get("https://dummyjson.com/todos")
+            .then(
+                (response) => {
+                    changeTodoData(response.data)
+                }
+            )
+            .catch(() => (
+                alert("Something went wrong")
+            ))
     }
 
-    useEffect( () => {fetchData()}, [] )
+    useEffect(() => { fetchData() }, [])
 
 
     return (
@@ -39,7 +43,7 @@ const ViewTodo = () => {
                                         <tr>
                                             <td>{data.id}</td>
                                             <td>{data.todo}</td>
-                                            <td>{data.completed.toString()}</td>
+                                            <td>{data.completed ? <p className='text-success'>completed</p> : <p className='text-danger'>not completed</p>}</td>
                                             <td>{data.userId}</td>
                                         </tr>
                                     )
